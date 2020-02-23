@@ -3,10 +3,10 @@
 
 Ansible Role :lock_with_ink_pen: :link: Zcashd
 =========
-[![Galaxy Role](https://img.shields.io/ansible/role/46755.svg)](https://galaxy.ansible.com/0x0I/zcashd)
+[![Galaxy Role](https://img.shields.io/ansible/role/46798.svg)](https://galaxy.ansible.com/0x0I/zcashd)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/0x0I/ansible-role-zcashd?color=yellow)
-[![Downloads](https://img.shields.io/ansible/role/d/46755.svg?color=lightgrey)](https://galaxy.ansible.com/0x0I/zcashd)
-[![Build Status](https://travis-ci.org/0x0I/ansible-role-zecminer.svg?branch=master)](https://travis-ci.org/0x0I/ansible-role-zcashd)
+[![Downloads](https://img.shields.io/ansible/role/d/46798.svg?color=lightgrey)](https://galaxy.ansible.com/0x0I/zcashd)
+[![Build Status](https://travis-ci.org/0x0I/ansible-role-zcashd.svg?branch=master)](https://travis-ci.org/0x0I/ansible-role-zcashd)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 **Table of Contents**
