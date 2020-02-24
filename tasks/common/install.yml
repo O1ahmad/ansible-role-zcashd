@@ -22,7 +22,6 @@
 
 - name: Create installation directory
   become: true
-  when: install_type == "archive"
   file:
     path: "{{ install_dir }}"
     state: directory
@@ -30,6 +29,14 @@
     group: "{{ zcashd_user }}"
   tags:
     - install
+
+- name: Ensure creation of zcashd data directory
+  become: true
+  file:
+    path: "/home/{{ zcashd_user }}"
+    owner: "{{ zcashd_user }}"
+    group: "{{ zcashd_user }}"
+    state: directory
 
 - name: Perform designated installation procedure
   include_tasks: "common/install/install-{{ install_type }}.yml"
