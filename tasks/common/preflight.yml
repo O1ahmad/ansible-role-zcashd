@@ -1,10 +1,4 @@
 ---
-- debug:
-    var: ansible_facts
-
-- debug:
-    var: ansible_distribution
-
 - name: Include OS and distribution specific variables.
   include_vars: "{{ item }}"
   with_first_found:
@@ -30,7 +24,16 @@
   tags:
     - preflight
 
+- name: Fail on archive installation of unsupported system distributions
+  when: install_type == 'archive' and ansible_os_family|lower != 'debian'
+  fail:
+    msg: "Sorry Zcashd doesn't support archive installation on {{ ansible_distribution }} installations. Exiting."
+  tags:
+    - preflight
+    - assert
+
 - name: Set extra archive extraction arguments based on type
+  become: true
   when: install_type == 'archive' and archive_url | basename | regex_search('(zip$)', ignorecase=True)
   package:
     name: unzip
