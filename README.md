@@ -53,15 +53,15 @@ _The following variables can be customized to control various aspects of this in
 - dedicated service user and group used by `zecminer` for privilege separation (see [here](https://www.beyondtrust.com/blog/entry/how-separation-privilege-improves-security) for details)
 
 `install_type: <archive>` (**default**: archive)
-- **archive**: currently compatible with **tar** formats, installation of **Zcashd** via compressed archives results in the direct download of its component binaries, consisting of the `zecminer` mining software.
+- **archive**: currently compatible with **tar** formats, installation of **Zcashd** via compressed archives results in the direct download of its component binaries, consisting of the `zcashd` blockchain service and cli software.
 
-  **note:** archived installation binaries can be obtained from the official [releases](https://github.com/nanopool/ewbf-miner/releases) site or those generated from development/custom sources.
+  **note:** archived installation binaries can be obtained from the official [releases](https://github.com/zcash/zcash/releases) site or those generated from development/custom sources.
 
-`install_dir: </path/to/installation/dir>` (**default**: `/opt/zecminer`)
-- path on target host where the `zecminer` binaries should be extracted to.
+`install_dir: </path/to/installation/dir>` (**default**: `/opt/zcashd`)
+- path on target host where the `zcashd` binaries should be extracted to.
 
 `archive_url: <path-or-url-to-archive>` (**default**: see `defaults/main.yml`)
-- address of a compressed **tar or zip** archive containing `zecminer` binaries. This method technically supports installation of any available version of `traefik`. Links to official versions can be found [here](https://github.com/nanopool/ewbf-miner/releases).
+- address of a compressed **tar or zip** archive containing `zcashd` binaries. This method technically supports installation of any available version of `zcashd`. Links to official versions can be found [here](https://github.com/zcash/zcash/releases).
 
 `archive_options: <untar-or-unzip-options>` (**default**: `[]`)
 - list of additional unarchival arguments to pass to either the `tar` or `unzip` binary at runtime for customizing how the archive is extracted to the designated installation directory. See [man tar](https://linux.die.net/man/1/tar) and [man unzip](https://linux.die.net/man/1/unzip) for available options to specify, respectively.
@@ -108,17 +108,17 @@ Each `zecminer_configs` entry is a hash representing the equivalent of a configu
 
 #### Launch
 
-This role supports launching a `zcashd` utilizing the [systemd](https://www.freedesktop.org/wiki/Software/systemd/) service management tool, which manages the service as a background process or daemon subject to the configuration and execution potential provided by its underlying management framework.
+This role supports launching `zcashd` utilizing the [systemd](https://www.freedesktop.org/wiki/Software/systemd/) service management tool, which manages the service as a background process or daemon subject to the configuration and execution potential provided by its underlying management framework.
 
 _The following variables can be customized to manage the service's **systemd** [Service] unit definition and execution profile/policy:_
 
 `extra_run_args: <zecminer-cli-options>` (**default**: `[]`)
 - list of `zcashd` commandline arguments to pass to the binary at runtime for customizing launch
 
-Supporting full expression of `zcashd`'s [cli](https://gist.github.com/0x0I/8a57be009fcdb3a006262309aadd741c) and, conserquently the full set of configuration options as referenced and described above, this variable enables the launch to be customized according to the user's exact specification.
+Supporting full expression of `zcashd`'s [cli](https://gist.github.com/0x0I/8a57be009fcdb3a006262309aadd741c) and, consequently the full set of configuration options as referenced and described above, this variable enables the launch to be customized according to the user's exact specification.
 
 `custom_unit_properties: <hash-of-systemd-service-settings>` (**default**: `[]`)
-- hash of settings used to customize the `[Service]` unit configuration and execution environment of the `zecminer` **systemd** service.
+- hash of settings used to customize the `[Service]` unit configuration and execution environment of the `zcashd` **systemd** service.
 
 #### Uninstall
 
@@ -127,7 +127,7 @@ Support for uninstalling and removing artifacts necessary for provisioning allow
 _The following variable(s) can be customized to manage this uninstall process:_
 
 `perform_uninstall: <true | false>` (**default**: `false`)
-- whether to uninstall and remove all artifacts and remnants of this `zecminer` installation on a target host (**see**: `handlers/main.yml` for details)
+- whether to uninstall and remove all artifacts and remnants of this `zcashd` installation on a target host (**see**: `handlers/main.yml` for details)
 
 Dependencies
 ------------
