@@ -15,6 +15,7 @@
     - archive
 
 - name: Create a symbolic link to installed binary
+  become: true
   when: install_type == "archive"
   file:
     src: "{{ install_dir }}/bin/{{ item }}"
@@ -31,6 +32,7 @@
     - archive
 
 - name: Install archive install dependencies
+  become: true
   package:
     name:
       - wget

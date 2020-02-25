@@ -13,7 +13,9 @@
 - name: Build zcashd binaries from source
   become: true
   when: install_type == "source"
-  command: "{{ install_dir }}/zcutil/build.sh -j{{ ansible_processor_vcpus }}"
+  command:
+    cmd: "{{ install_dir }}/zcutil/build.sh -j{{ ansible_processor_vcpus }}"
+    creates: "{{ install_dir }}/src/zcashd"
   changed_when: false
   tags:
     - install
@@ -32,7 +34,9 @@
 - name: Fetch generated parameters from MPC
   become: true
   become_user: "{{ zcashd_user }}"
-  command: "{{ install_dir }}/zcutil/fetch-params.sh"
+  command:
+    cmd: "{{ install_dir }}/zcutil/fetch-params.sh"
+    creates: "/home/{{ zcashd_user }}/.zcash_params"
   changed_when: false
   tags:
     - install
