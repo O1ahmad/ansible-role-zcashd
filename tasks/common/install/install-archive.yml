@@ -25,6 +25,23 @@
   with_items:
     - zcashd
     - zcash-cli
+    - zcash-fetch-params
+  tags:
+    - install
+    - archive
+
+- name: Install archive install dependencies
+  package:
+    name:
+      - wget
+      - curl
+    state: present
+
+- name: Fetch generated parameters from MPC
+  become: true
+  become_user: "{{ zcashd_user }}"
+  command: "zcash-fetch-params"
+  changed_when: false
   tags:
     - install
     - archive

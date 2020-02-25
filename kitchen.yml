@@ -28,11 +28,41 @@ provisioner:
   ansible_verbose: true
   ansible_cfg_path: test/ansible.cfg
   requirements_path: test/requirements-test.yml
-  idempotency_test: true
   require_chef_for_busser: false
   require_ruby_for_busser: false
 
 platforms:
+  - name: centos-7
+    driver_config:
+      <<: *default_driver_config
+    provisioner:
+      ansible_cfg_path: test/ansible-legacy.cfg
+  - name: fedora-30
+    driver_config:
+      <<: *default_driver_config
+      provision_command:
+        - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+        - systemctl enable sshd.service
+        - yum -y install python-pip
+  - name: fedora-31
+    driver_config:
+      <<: *default_driver_config
+      provision_command:
+        - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+        - systemctl enable sshd.service
+        - yum -y install python-pip
+  - name: ubuntu-18.04
+    driver_config:
+      <<: *default_driver_config
+      provision_command:
+        - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+        - systemctl enable ssh.service
+  - name: ubuntu-19.04
+    driver_config:
+      <<: *default_driver_config
+      provision_command:
+        - sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+        - systemctl enable ssh.service
   - name: debian-8
     driver_config:
       <<: *default_driver_config
@@ -61,3 +91,39 @@ suites:
     verifier:
       inspec_tests:
         - path: test/integration/install/install_archive
+    excludes:
+      - centos-7
+      - fedora-30
+      - fedora-31
+      - ubuntu-18.04
+      - ubuntu-19.04
+  - name: install_source
+    provisioner:
+      playbook: test/integration/install/install_source/default_playbook.yml
+    verifier:
+      inspec_tests:
+        - path: test/integration/install/install_source
+  - name: config
+    provisioner:
+      playbook: test/integration/config/default_playbook.yml
+    verifier:
+      inspec_tests:
+        - path: test/integration/config
+  - name: launch
+    provisioner:
+      playbook: test/integration/launch/default_playbook.yml
+    verifier:
+      inspec_tests:
+        - path: test/integration/launch
+  - name: uninstall
+    provisioner:
+      playbook: test/integration/uninstall/default_playbook.yml
+    verifier:
+      inspec_tests:
+        - path: test/integration/uninstall
+    excludes:
+      - centos-7
+      - fedora-30
+      - fedora-31
+      - ubuntu-18.04
+      - ubuntu-19.04
