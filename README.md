@@ -56,6 +56,8 @@ _The following variables can be customized to control various aspects of this in
 - **archive**: currently compatible with **tar** formats, installation of **Zcashd** via compressed archives results in the direct download of its component binaries, consisting of the `zcashd` blockchain service and cli software.
 
   **note:** archived installation binaries can be obtained from the official [releases](https://github.com/zcash/zcash/releases) site or those generated from development/custom sources.
+  
+  - **source**: build *lotus network client* and *storage miner* binaries from source. This installation process consists of cloning the github hosted [repository](https://github.com/zcash/zcash) and building from source code using a provided build script. See [here](https://zcash.readthedocs.io/en/latest/rtd_pages/user_guide.html#build) for more details on building from source.
 
 `install_dir: </path/to/installation/dir>` (**default**: `/opt/zcashd`)
 - path on target host where the `zcashd` binaries should be extracted to.
@@ -65,6 +67,12 @@ _The following variables can be customized to control various aspects of this in
 
 `archive_options: <untar-or-unzip-options>` (**default**: `[]`)
 - list of additional unarchival arguments to pass to either the `tar` or `unzip` binary at runtime for customizing how the archive is extracted to the designated installation directory. See [man tar](https://linux.die.net/man/1/tar) and [man unzip](https://linux.die.net/man/1/unzip) for available options to specify, respectively.
+
+`git_url: <path-or-url-to-git-repo>` (**default**: see `defaults/main.yml`)
+- address of `zcashd` git repository. Address can reference the [Github](https://github.com/zcash/zcash) site address or custom source hosted on an alternate git hosting site.
+
+`git_version: <string>` (**default**: `v2.1.1-1`)
+- version of the repository to check out. This can be the literal string HEAD, a branch name, a tag name.
 
 #### Config
 
