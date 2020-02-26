@@ -133,6 +133,50 @@ default example:
   - role: 0x0I.zcashd
 ```
 
+perform specific archive version installation:
+```
+- hosts: all
+  roles:
+  - role: 0x0I.zcashd
+    vars:
+      install_type: archive
+      archive_url: https://z.cash/downloads/zcash-2.0.7-3-linux64-debian-jessie.tar.gz
+```
+
+perform specific git source build installation:
+```
+- hosts: all
+  roles:
+  - role: 0x0I.zcashd
+    vars:
+      install_type: source
+      git_url: https://github.com/zcash/zcash.git
+      git_version: v2.0.7-3
+```
+
+connect client to test network:
+```
+- hosts: all
+  roles:
+  - role: 0x0I.zcashd
+    vars:
+      zcashd_config:
+        testnet: 1
+        addnode: testnet.z.cash
+```
+
+enable CPU mining with more efficient hash algorithm solver(exposing ALL cores for use):
+```
+- hosts: all
+  roles:
+  - role: 0x0I.zcashd
+    vars:
+      zcashd_config:
+        gen: 1
+        genproclimit: -1
+        equihashsolver: tromp
+```
+
 License
 -------
 
