@@ -50,7 +50,7 @@ Variables are available and organized according to the following software & mach
 _The following variables can be customized to control various aspects of this installation process, ranging from software version and source location of binaries to the installation directory where they are stored:_
 
 `zcashd_user: <service-user-name>` (**default**: *zcashd*)
-- dedicated service user and group used by `zecminer` for privilege separation (see [here](https://www.beyondtrust.com/blog/entry/how-separation-privilege-improves-security) for details)
+- dedicated service user and group used by `zcashd` for privilege separation (see [here](https://www.beyondtrust.com/blog/entry/how-separation-privilege-improves-security) for details)
 
 `install_type: <archive>` (**default**: archive)
 - **archive**: currently compatible with **tar** formats, installation of **Zcashd** via compressed archives results in the direct download of its component binaries, consisting of the `zcashd` blockchain service and cli software.
@@ -68,43 +68,33 @@ _The following variables can be customized to control various aspects of this in
 
 #### Config
 
-**Zecminer** supports specification of various options controlling aspects of the Zcash miner's behavior and operational profile. Each configuration can be expressed via either the tool's command-line interface or within in an INI-sytle configuration file. The following details the facilities provided by this role to manage the contents of the aforementioned configuration file.
+**Zcashd** supports specification of various options controlling aspects of the Zcashd client's behavior and operational profile. Each configuration can be expressed within in a simple configuration file, `zcashd.conf` by default, composed of **key=vaue** pairs representing the aforementioned configuration properties available. The following details the facilities provided by this role to manage the contents of the aforementioned configuration file.
 
-In typical `INI` or `TOML` fashion, individual sets of configurations consist of definitions representing config sections and associated setting key-value pairs. These sections and settings are made up of common miner options and custom Zcash server pool properties to access.
+As indicated, available configuration options are organized according to the systems/subsystems they are used to manage. For a reference to the list of available configuration options, see [here](https://zcash.readthedocs.io/en/latest/rtd_pages/zcash_conf_guide.html).
 
-Reference [here](https://zec.nanopool.org/) for a list of server pool connection settings and [here](https://gist.github.com/0x0I/8a02072f7a2729bd8a0ab626d89c16d2) for an example config.
+`config_dir: </path/to/configuration/dir>` (**default**: `/home/{{ zcashd_user }}`)
+- path on target host where the `zcashd` configuration file should be rendered
 
-`config_dir: </path/to/configuration/dir>` (**default**: `{{ install_dir }}`)
-- path on target host where the `zecminer` configuration file should be rendered
+Each of these configurations can be expressed using the `zcashd_config` hash, which contains a list of various `zcashd` configuration options (hash) objects organized according to the following:
+* **network-related** - settings related to client network broadcasting and listening properties
+* **json-rpc** - JSON-RPC server interfacing properties
+* **transaction-fee** - client properties managing cost of verifying network transactions
+* **miscellaneous** - additional properties managing client mining and privacy protection operations
 
-Each of these configurations can be expressed using the `zecminer_configs` hash, which contains a list of various `zecminer` configuration options (hash) objects organized according to the following:
-* common - miner configuration options common to all server connections
-* server - custom server connection and operational configuration options to the specified server
+Each `zcashd_config` entry is a **key-value** pair representing the equivalent of a configuration setting as expected to be expressed by the `zcashd` server.
 
-Each `zecminer_configs` entry is a hash representing the equivalent of a configuration section as expected to be expressed by the `zecminer` server. As previously described, these hashes are structured by config section and associated key-value setting pairs.
-
-`[zecminer_configs: <entry>:] name: <common|server>` (**default**: *required*)
-- name of the configuration section to render
-
-`[zecminer_configs: <entry>:] settings: <YAML>` (**default**: )
-- specifies parameters that manage various aspects of the Zcash miner's operations
+`[zcashd_config:]: <hash-expressed-in-YAML>` (**default**: *required*)
+- configuration key-value pair to render within the configuration file
 
 ###### Example
 
  ```yaml
-  zecminer_configs:
-    - name: common
-      settings:
-        log: 0
-        logfile: /var/log/miner.log
-        api: 127.0.0.1:42000
-    - name: server
-      settings:
-        server: zec-us-east1.nanopool.org
-        port: 6666
-        user: user1-key
-        pass: user1-password
-  ```
+  zcashd_config:
+    testnet: 1
+    addnode: testnet.z.cash
+    server: 1
+    bind: 0.0.0.0
+ ```
 
 #### Launch
 
@@ -112,10 +102,10 @@ This role supports launching `zcashd` utilizing the [systemd](https://www.freede
 
 _The following variables can be customized to manage the service's **systemd** [Service] unit definition and execution profile/policy:_
 
-`extra_run_args: <zecminer-cli-options>` (**default**: `[]`)
+`extra_run_args: <zcashd-cli-options>` (**default**: `[]`)
 - list of `zcashd` commandline arguments to pass to the binary at runtime for customizing launch
 
-Supporting full expression of `zcashd`'s [cli](https://gist.github.com/0x0I/8a57be009fcdb3a006262309aadd741c) and, consequently the full set of configuration options as referenced and described above, this variable enables the launch to be customized according to the user's exact specification.
+Supporting full expression of `zcashd`'s [cli](https://zcash.readthedocs.io/en/latest/rtd_pages/user_guide.html#using-zcash) and, consequently the full set of configuration options as referenced and described above, this variable enables the launch to be customized according to the user's exact specification.
 
 `custom_unit_properties: <hash-of-systemd-service-settings>` (**default**: `[]`)
 - hash of settings used to customize the `[Service]` unit configuration and execution environment of the `zcashd` **systemd** service.
