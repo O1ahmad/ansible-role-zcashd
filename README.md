@@ -57,7 +57,7 @@ _The following variables can be customized to control various aspects of this in
 
   **note:** archived installation binaries can be obtained from the official [releases](https://github.com/zcash/zcash/releases) site or those generated from development/custom sources.
   
-  - **source**: build *lotus network client* and *storage miner* binaries from source. This installation process consists of cloning the github hosted [repository](https://github.com/zcash/zcash) and building from source code using a provided build script. See [here](https://zcash.readthedocs.io/en/latest/rtd_pages/user_guide.html#build) for more details on building from source.
+- **source**: build *lotus network client* and *storage miner* binaries from source. This installation process consists of cloning the github hosted [repository](https://github.com/zcash/zcash) and building from source code using a provided build script. See [here](https://zcash.readthedocs.io/en/latest/rtd_pages/user_guide.html#build) for more details on building from source.
 
 `install_dir: </path/to/installation/dir>` (**default**: `/opt/zcashd`)
 - path on target host where the `zcashd` binaries should be extracted to.
