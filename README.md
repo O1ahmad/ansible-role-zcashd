@@ -45,7 +45,7 @@ Variables are available and organized according to the following software & mach
 
 #### Install
 
-`zcashd`can be installed using compressed archives (`.tar`, `.zip`) for debian-based installations, downloaded and extracted from various sources, or built from source.
+`zcashd`can be installed using compressed archives (`.tar`, `.zip`) for debian-based installations, downloaded and extracted from various locations, or built from source.
 
 _The following variables can be customized to control various aspects of this installation process, ranging from software version and source location of binaries to the installation directory where they are stored:_
 
@@ -53,17 +53,17 @@ _The following variables can be customized to control various aspects of this in
 - dedicated service user and group used by `zcashd` for privilege separation (see [here](https://www.beyondtrust.com/blog/entry/how-separation-privilege-improves-security) for details)
 
 `install_type: <archive>` (**default**: archive)
-- **archive**: currently compatible with **tar** formats, installation of **Zcashd** via compressed archives results in the direct download of its component binaries, consisting of the `zcashd` blockchain service and cli software.
+- **archive**: currently compatible with **tar** formats, installation of **Zcashd** via compressed archives results in the direct download of its component binaries, consisting of the `zcashd` client and cli software.
 
   **note:** archived installation binaries can be obtained from the official [releases](https://github.com/zcash/zcash/releases) site or those generated from development/custom sources.
   
-- **source**: build *lotus network client* and *storage miner* binaries from source. This installation process consists of cloning the github hosted [repository](https://github.com/zcash/zcash) and building from source code using a provided build script. See [here](https://zcash.readthedocs.io/en/latest/rtd_pages/user_guide.html#build) for more details on building from source.
+- **source**: build *zcashd* binaries from source. This installation process consists of cloning the github hosted [repository](https://github.com/zcash/zcash) and building from source code using a provided build script. See [here](https://zcash.readthedocs.io/en/latest/rtd_pages/user_guide.html#build) for more details on building from source.
 
 `install_dir: </path/to/installation/dir>` (**default**: `/opt/zcashd`)
 - path on target host where the `zcashd` binaries should be extracted to.
 
 `archive_url: <path-or-url-to-archive>` (**default**: see `defaults/main.yml`)
-- address of a compressed **tar or zip** archive containing `zcashd` binaries. This method technically supports installation of any available version of `zcashd`. Links to official versions can be found [here](https://github.com/zcash/zcash/releases).
+- address of a compressed **tar or zip** archive containing `zcashd` binaries. This method technically supports installation of any available version of `zcashd`. Links to official versions can be found [here](https://zcash.readthedocs.io/en/latest/rtd_pages/install_binary_tarball.html).
 
 `archive_options: <untar-or-unzip-options>` (**default**: `[]`)
 - list of additional unarchival arguments to pass to either the `tar` or `unzip` binary at runtime for customizing how the archive is extracted to the designated installation directory. See [man tar](https://linux.die.net/man/1/tar) and [man unzip](https://linux.die.net/man/1/unzip) for available options to specify, respectively.
@@ -76,7 +76,7 @@ _The following variables can be customized to control various aspects of this in
 
 #### Config
 
-**Zcashd** supports specification of various options controlling aspects of the Zcashd client's behavior and operational profile. Each configuration can be expressed within in a simple configuration file, `zcashd.conf` by default, composed of **key=vaue** pairs representing the aforementioned configuration properties available. The following details the facilities provided by this role to manage the contents of the aforementioned configuration file.
+**Zcashd** supports specification of various options controlling aspects of the Zcashd client's behavior and operational profile. Each configuration can be expressed within a simple configuration file, `zcashd.conf` by default, composed of **key=vaue** pairs representing the aforementioned configuration properties available. The following details the facilities provided by this role to manage the contents of the aforementioned configuration file.
 
 As indicated, available configuration options are organized according to the systems/subsystems they are used to manage. For a reference to the list of available configuration options, see [here](https://zcash.readthedocs.io/en/latest/rtd_pages/zcash_conf_guide.html).
 
