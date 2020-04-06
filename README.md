@@ -78,7 +78,7 @@ _The following variables can be customized to control various aspects of this in
 
 **Zcashd** supports specification of various options controlling aspects of the Zcashd client's behavior and operational profile. Each configuration can be expressed within a simple configuration file, `zcashd.conf` by default, composed of **key=vaue** pairs representing the aforementioned configuration properties available. The following details the facilities provided by this role to manage the contents of the aforementioned configuration file.
 
-As indicated, available configuration options are organized according to the systems/subsystems they are used to manage. For a reference to the list of available configuration options, see [here](https://zcash.readthedocs.io/en/latest/rtd_pages/zcash_conf_guide.html).
+For a reference to the list of available configuration options, see [here](https://zcash.readthedocs.io/en/latest/rtd_pages/zcash_conf_guide.html).
 
 `config_dir: </path/to/configuration/dir>` (**default**: `/home/{{ zcashd_user }}`)
 - path on target host where the `zcashd` configuration file should be rendered
@@ -91,7 +91,7 @@ Each of these configurations can be expressed using the `zcashd_config` hash, wh
 
 Each `zcashd_config` entry is a **key-value** pair representing the equivalent of a configuration setting as expected to be expressed by the `zcashd` server.
 
-`[zcashd_config:]: <hash-expressed-in-YAML>` (**default**: *required*)
+`[zcashd_config:]: <hash>` (**default**: *required*)
 - configuration key-value pair to render within the configuration file
 
 ###### Example
@@ -113,10 +113,26 @@ _The following variables can be customized to manage the service's **systemd** [
 `extra_run_args: <zcashd-cli-options>` (**default**: `[]`)
 - list of `zcashd` commandline arguments to pass to the binary at runtime for customizing launch
 
-Supporting full expression of `zcashd`'s [cli](https://zcash.readthedocs.io/en/latest/rtd_pages/user_guide.html#using-zcash) and, consequently the full set of configuration options as referenced and described above, this variable enables the launch to be customized according to the user's exact specification.
+Supporting full expression of `zcashd`'s [cli](https://zcash.readthedocs.io/en/latest/rtd_pages/user_guide.html#using-zcash) and, consequently the full set of configuration options as referenced and described above, this variable enables the launch to be customized according to the user's specification.
+
+###### Example
+
+ ```yaml
+  extra_run_args: '-showmetrics -metricsui -rpcbind 0.0.0.0' 
+ ```
 
 `custom_unit_properties: <hash-of-systemd-service-settings>` (**default**: `[]`)
 - hash of settings used to customize the `[Service]` unit configuration and execution environment of the `zcashd` **systemd** service.
+
+###### Example
+
+ ```yaml
+  custom_unit_properties:
+    ZADDR: 'zs1examplea4lqxrtmlpkayj0hxpfdd3ve62xhd7jds8c2a8tqz5kekplt469eza5wu8djdvpauezv'
+    Restart: on-failure
+    ExecReload: /bin/kill -HUP $MAINPID
+    LimitDATA: 1G
+ ```
 
 #### Uninstall
 
