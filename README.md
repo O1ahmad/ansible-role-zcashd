@@ -128,7 +128,7 @@ Supporting full expression of `zcashd`'s [cli](https://zcash.readthedocs.io/en/l
 
  ```yaml
   custom_unit_properties:
-    ZADDR: 'zs1examplea4lqxrtmlpkayj0hxpfdd3ve62xhd7jds8c2a8tqz5kekplt469eza5wu8djdvpauezv'
+    Environment: 'ZADDR=zs1examplea4lqxrtmlpkayj0hxpfdd3ve62xhd7jds8c2a8tqz5kekplt469eza5wu8djdvpauezv'
     Restart: on-failure
     ExecReload: /bin/kill -HUP $MAINPID
     LimitDATA: 1G
